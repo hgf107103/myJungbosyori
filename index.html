@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <style>
+        @font-face { font-family: 'DXgothic';
+        src: url(DX경필고딕B.ttf) format('truetype');
+        }
+
+        *{
+            font-family: "DXgothic";
+            margin: 0px 0px;
+            padding: 0px 0px;
+        }
+        *:focus {
+            outline: none;
+        }
+        div{
+            width: 60%;
+            padding: 100px 20px;
+            margin: 220px auto;
+            border: 1px solid black;
+            border-radius: 20px;
+            background-color: rgb(240, 240, 240);
+        }
+        button {
+            display: block;
+            width: 80%;
+            padding: 10px 10px;
+            font-size: 40px;
+            margin: 5px auto;
+            font-weight: bold;
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: white;
+            transition: all ease 1.5s;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: black;
+            color: white;
+            transition: all ease 1s;
+        }
+    </style>
+    <script src="jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div>
+        <button onclick="location.href='newTechnology.html'">신기술동향</button>
+        <button>업무프로세스</button>
+        <button>전산영어</button>
+    </div>
+
+</body>
+</html>
