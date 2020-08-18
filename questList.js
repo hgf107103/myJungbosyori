@@ -13,17 +13,20 @@ function shuffle(list) {
         return;
     }
 
-    for (let i = 0; i < 50; i++) {
-        let random1 = Math.floor(Math.random() * list.length);
-        let random2 = Math.floor(Math.random() * list.length);
+    for (let i = 0; i < list.length; i++) {
+        let random = Math.floor(Math.random() * list.length);
     
-        while (random1 == random2) {
-            random2 = Math.floor(Math.random() * list.length);
+        while (random == i) {
+            if (i == 0 && random == 0) {
+                random++;
+            } else if(i > 0 && random > 0 && i == random) {
+                random--;
+            }
         }
     
-        let temp = list[random2];
-        list[random2] = list[random1];
-        list[random1] = temp;
+        let temp = list[i];
+        list[i] = list[random];
+        list[random] = temp;
     }
     
 
@@ -67,6 +70,20 @@ function getList() {
     list.push(new question("RADIUS (Remote Authentication  Dial In User Service) 데이터를 전송 제어 프로토콜 (TCP) 이나 전송계층 보안 (TLS) 을 이용하여 전송하기 위한 프로토콜이다. 이것은 'RADIUS over TLS'의 준말로, RADIUS는 이용자가 접속을 요구할 때 이용자의 ID나 암호와 같은 정보를 서버로 보내어 식별하고 인증을 수행한다. 하지만 기존의 RADIUS가 보안이 위약한 사용자 데이터그램 프로토콜 (UDP) 에 의존한다는 점과 패킷 적재 부분에서의 보안 취약성을 보완하기 위해 이것이 등장하였다.  이것은 보안성이 높은 TCP나 TLS를 사용하고, 이용자와 서버 간의 인증서 교환 등을 통한 상호 인증 서비스를 제공한다.", "", "래드섹 프로토콜", "RadSec Protocol"));
     list.push(new question("장비에 스토리지를 직접 연결하여 데이터를 저장하는 것으로 대용량의 데이터를 저장하기 위해 등장한 저장 장치이다. 서로 다른 종류의 데이터 저장 장치를 하나의 데이터 서버에 연결하여 관리하는 네트워크이다.", "SAN", "스토리지 전용 네트워크", "Storage Area Network"));
     list.push(new question("네트워크 상의 다른 기기들에게 파일 기반 데이터 저장 서비스를 제공한다. 일반 서버와는 다르게, 완전한 형태의 운영체제는 사용하지 않고 최소한의 기능만을 탑재한 운영 체제를 사용한다. 설치와 관리가 용이하고 구축이 저렴하기 때문에 소규모 파일 공유 환경에서 인기를 얻고 있다.", "NAS", "망 부착 저장장치", "Network Attached Storage"));
+    list.push(new question("주변 상황에 맞추어 스스로 망을 구성하는 네트워크를 말한다. 통신망 커버리지 및 전송 용량 확장의 경제성 문제를 해결하고, 망의 운영과 관리의 효율성을 높이는 것을 목적으로 한다. 갑작스러운 사용자의 증가나 감소 시에는 자동으로 주변 셀과의 협력을 통해 셀 용량을 변화시키며, 장애가 발생했을 때 자체적인 치유도 가능하다.", "SON", "자동 구성 네트워크", "Self Organizing Network"));
+    list.push(new question("가상 이동 통신망 사업자라는 의미로, 이동통신망을 보유하지 않고 기존의 이동 통신망 사업자로부터 통신망을 임대하여 서비스를 제공하는 사업자들을 의미한다. 우리나라에서는 2011년부터 본격적으로 보급되어 2012년 6월부터 '알뜰폰' 이라는 이름으로 사용되어지고 있다.", "MVNO", "", "Mobile Virtual Network Operators"));
+    list.push(new question("전 국민이 이용하는 공공 편의 시설에 무료 와이파이를 설치함으로써 서민들의 통신비를 절감하겠다는 계획이다. 이것의 의무 설치는 문재인 대통령의 대선 공약이기도 하다. 이것은 주민센터, 전통시장, 보건소 등 서민과 소외계층 중심이던 이전 버전과는 달리 도서관, 관광지, 체육, 상업, 문화 시설 등 다양한 시설로 확대된다. 국민들의 체감 효과를 대폭 늘리기 위해 5만~10만개의 접속장치 설치를 목표로 하고 있다. 정부는 이것의 체감 속도가 LTE와 차이가 없을 것이라고 밝혔다.", "", "공공 와이파이 2.0", "Public WiFi 2.0"));
+    list.push(new question("한국정보화진흥원 (NIA, National Information Society Agency) 에서 운영하는 연구 개발망으로, 상용망에 적용하기 어려운 미래 네트워크 기술을 시험, 검증하고 기술 개발과 상용화를 지원하기 위해 운영된다. 이것은 현재 국립암센터. 기상청, 서울대 등 80개 이상 기관 망과 연결되어 있다. 2019년 초에는 서울과 판교 41km 구간에 양자암호통신망을 구축하여 시범 운영하는 등 활발히 이용되고 있다.", "KOREN", "미래네트워크 선도 시험망", "KOrea advanced REsearch Network"));
+    list.push(new question("스마트 그리드와 같은 장거리 무선 통신을 필요로 하는 사물인터넷 (IoT) 서비스를 위한 저전력 장거리 (LPWA, Low-Power Wide Area) 통신기술이다. 이것은 짧은 시간 동안 데이터 전송이 빈번한 검침 분야에 유용하며, 낮은 지연속도, 메시 네트워크 기반 확장성, 펌웨어 업그레이드 용이성 면에서 다른 저전력 장거리 통신기술에 비해 우월하다. 2017년 3월 전남 고창군에 도입되면서 주목받았는데, 해당 기술은 국제표준화 단체 IEEE의 802.15.4g 표준을 준수하며, 900MHz의 비면허 대역을 활용하여 최대 데이터 전송 속도 300Kbps로 약 5Km까지 전송이 가능하다.", "", "와이선", "Wi-SUN"));
+    list.push(new question("10cm 이내의 거리에서 3.5Gbps 속도의 데이터 전송이 가능한 초고속 근접무선통신 (NFC) 이다. 휴대용 스마트 기기, 노트북, 쇼핑몰, 거리 등의 광고나 키오스크에 접목하여 사용할 수 있다. 한국전자통신연구원 (ETRI) 주관으로 전자부품연구원, 코프, LG이노텍 등이 기술 개발에 참여했다. 2017년 3월에는 IEEE 국제표준 IEEE 802.15.3e로 등록됐다.", "", "징", "Zing"));
+
+
+    //인터넷
+    list.push(new question("웹 브라우저를 만드는 데 기반을 제공하는 레이아웃 엔진이다. 원래 Mac OS X의 사파리 웹 브라우저 엔진으로 사용하기 위해 컨커러 브라우저의 KHTML 소프트웨어 라이브러리에서 가져온 것이었으나 최근에는 애플의 사파리와 구글 크롬은 물론 림의 블랙베리에서도 브라우저의 엔진으로 사용되고 있다.", "", "웹키트", "WebKit"));
+    list.push(new question("웹에서 제공하는 정보 및 서비스를 이용하여 새로운 소프트웨어나 서비스, 데이터베이스 등을 만드는 기술이다. 즉 다수의 정보원이 제공하는 콘텐츠를 조합하여 하나의 서비스로 제공하는 웹 사이트 또는 애플리케이션을 말한다. 구글 지도에 부동산 매물 정보를 결합한 구글의 하우징맵스 (Housing Maps) 가 대표적이다.", "", "매시업", "Mashup"));
+    /*list.push(new question("", "VoIP", "", "Voice over Internet Protocol"));
+    list.push(new question("", "", "", ""));*/
+    
 
     //list.push(new question("설명", "영어줄임말", "한글", "영어풀네임"));
 
