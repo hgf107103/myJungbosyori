@@ -60,6 +60,7 @@
             border: 1px solid black;
             border-radius: 20px;
             padding: 80px 80px;
+            padding-top: 40px;
             text-align: center;
             transition: all ease 1s;
         }
@@ -68,6 +69,28 @@
         }
         div#questBox h2{
             font-size: 25px;
+        }
+        div#questBox h3{
+            font-size: 25px;
+            margin-bottom: 40px;
+            padding: 10px 20px;
+            border: 1px solid rgb(50,50,50);
+            color: white;
+            background-color: rgb(100,100,100);
+            border-radius: 10px;
+        }
+        div#questBox table {
+            border-collapse: collapse;
+            margin: auto;
+            width: 70%;
+        }
+        div#questBox table td{
+            border: 1px solid rgb(120,120,120);
+            padding: 15px 10px;
+        }
+        div#questBox table td.tableLan{
+            color: rgb(80,80,80);
+            width: 30%;
         }
 
 
@@ -81,9 +104,9 @@
         }
         div input[type=text] {
             text-align: center;
-            padding: 10px 50px;
-            width: 55%;
-            font-size: 25px;
+            padding: 15px 50px;
+            width: 85%;
+            font-size: 30px;
             border: none;
             border-bottom: 2px solid rgb(200,200,200);
             
@@ -100,9 +123,9 @@
         div input[type=button] {
             text-align: center;
             margin-top: 15px;
-            padding: 10px 30px;
+            padding: 15px 30px;
             width: 35%;
-            font-size: 23px;
+            font-size: 30px;
             border: 1px solid rgb(150,150,150);
             border-radius: 5px;
             background-color: rgb(250,250,250);
@@ -132,6 +155,11 @@
             border: 1px solid black;
             transition: all ease 0.5s;
         }
+
+        hr {
+            border-color: black;
+            margin-top: 10px;
+        }
     </style>
     <script>
         let lapCnt = 1;
@@ -153,10 +181,11 @@
             alert("시작합니다.");
             list = getList();
             shuffle(list);
-            $("#questBox").text(list[0].quest);
+            $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}</p>`);
             document.getElementById("startBtn").style.display = "none";
             document.getElementById("sayBtn").style.display = "block";
             document.getElementById("myAnswer").style.display = "block";
+            document.getElementById("theme").style.display = "block";
             count();
         }
         function sayAnswerFunction() {//문제 답 날렸을떄 반응
@@ -184,7 +213,6 @@
                 $("#sayBtn").val(`남은기회 ${sayChance}회`);
                 if (sayChance == 0) {
                     wrongList.push(listCnt - 1);
-                    $("#sayBtn").val(`답맞추기`);
                     seeAnswerFunction();
                     return;
                 }
@@ -195,10 +223,11 @@
         }
 
         function seeAnswerFunction() {//해답 보여주기 함수
-            $("#questBox").html(`${list[listCnt - 1].quest}<br><br>정답<br>한글 <span>${list[listCnt - 1].korAnswer}</span><br>영(약) <span>${list[listCnt - 1].engAnswer}</span><br>영(풀) <span>${list[listCnt - 1].engFullname}</span>`);
+            $("#questBox").html(`${$("#questBox").html()}<br><hr id="hrs"><br><p>정답</p><br><table><tr><td class='tableLan'>한글</td><td><span>${list[listCnt - 1].korAnswer}</span></td></tr><tr><td class='tableLan'>영어(약)</td><td><span>${list[listCnt - 1].engAnswer}</span></td></tr><tr><td class='tableLan'>영어(풀)</td><td><span>${list[listCnt - 1].engFullname}</span></td></tr></table>`);
             document.getElementById("sayBtn").style.display = "none";
             document.getElementById("seeBtn").style.display = "none";
             document.getElementById("myAnswer").style.display = "none";
+            $("#sayBtn").val(`답맞추기`);
             sayChance = 10;
 
             if (listCnt == list.length) {//모든 문제를 다 풀었을때
@@ -222,7 +251,8 @@
         function nextAnswerFunction() {//다음문제 함수
             sayAnswerCnt++
             listCnt++;
-            $("#questBox").text(list[listCnt - 1].quest);
+            //$("#questBox").text(list[listCnt - 1].quest);
+            $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}<p>`);
 
             document.getElementById("nextBtn").style.display = "none";
             document.getElementById("sayBtn").style.display = "block";
@@ -322,6 +352,9 @@
                     $("#myAnswer").css("background-color", "black");
                     $("#myAnswer").css("color", "white");
 
+
+                    $("#hrs").css("border-color", "white");
+
                     $("#theme").val("화이트테마");
 
                     return;
@@ -343,6 +376,8 @@
                     $("#myAnswer").css("background-color", "white");
                     $("#myAnswer").css("color", "black");
 
+                    $("#hrs").css("border-color", "black");
+
                     $("#theme").val("블랙테마");
 
                     return;
@@ -354,6 +389,6 @@
             
         }
     </script>
-    <input id="theme" type="button" onclick="themeChange()" value="블랙테마">
+    <input id="theme" type="button" onclick="themeChange()" style="display: none;" value="블랙테마">
 </body>
 </html>
