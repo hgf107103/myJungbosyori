@@ -5,6 +5,8 @@
     <title>신기술동향 문제풀이</title>
     <script src="jquery-3.5.1.min.js"></script>
     <script src="questList.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
     <style>
         @font-face {
             font-family: 'DXgothic';
@@ -143,8 +145,8 @@
             padding: 10px 15px;
             position: fixed;
             font-size: 22px;
-            top: 5px;
-            right: 5px;
+            top: 20px;
+            right: 20px;
             border: 1px solid rgb(150,150,150);
             border-radius: 5px;
             background-color: rgb(250,250,250);
@@ -152,6 +154,23 @@
             transition: all ease 0.5s;
         }
         input#theme:hover {
+            border: 1px solid black;
+            transition: all ease 0.5s;
+        }
+
+        input#nokori {
+            padding: 10px 15px;
+            position: fixed;
+            font-size: 22px;
+            top: 68px;
+            right: 20px;
+            border: 1px solid rgb(150,150,150);
+            border-radius: 5px;
+            background-color: rgb(250,250,250);
+            cursor: pointer;
+            transition: all ease 0.5s;
+        }
+        input#nokori:hover {
             border: 1px solid black;
             transition: all ease 0.5s;
         }
@@ -178,7 +197,8 @@
             }
         }
         function start() {//문제풀이 시작함수
-            alert("시작합니다.");
+
+            alert('시작합니다.');
             list = getList();
             shuffle(list);
             $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}</p>`);
@@ -186,7 +206,9 @@
             document.getElementById("sayBtn").style.display = "block";
             document.getElementById("myAnswer").style.display = "block";
             document.getElementById("theme").style.display = "block";
+            document.getElementById("nokori").style.display = "block";
             count();
+            
         }
         function sayAnswerFunction() {//문제 답 날렸을떄 반응
             if (($("#myAnswer").val() == list[listCnt - 1].korAnswer || $("#myAnswer").val() == list[listCnt - 1].engAnswer || $("#myAnswer").val() == list[listCnt - 1].engFullname) && $("#myAnswer").val() != "") {
@@ -208,7 +230,10 @@
             } else if ($("#myAnswer").val() != list[listCnt - 1].korAnswer || $("#myAnswer").val() != list[listCnt - 1].engAnswer || $("#myAnswer").val() != list[listCnt - 1].engFullname || $("#myAnswer").val() == "") {
                 
                 sayChance--;
-                alert(`틀렸습니다.`);
+                $('#wrongAnswerModal').html(`틀렸습니다<br>남은 기회 : ${sayChance}회`);
+                $('#wrongAnswerModal').modal({
+                    fadeDuration: 300
+                });
                 $("#myAnswer").val('');
                 $("#sayBtn").val(`남은기회 ${sayChance}회`);
                 if (sayChance == 0) {
@@ -296,12 +321,16 @@
 
 
         function enterkey() {
-            if (window.event.keyCode == 13) {
-                if (document.getElementById("sayBtn").style.display == 'block') {
+            if (window.event.keyCode == 13 ) {
+                if (document.getElementById("sayBtn").style.display == 'block' && (document.getElementById("wrongAnswerModal").style.display == 'none' || document.getElementById("wrongAnswerModal").style.display == '')) {
                     sayAnswerFunction();
+                    retrun;
                 }
             }
+            
         }
+
+        
     </script>
 </head>
 <body>
@@ -390,5 +419,22 @@
         }
     </script>
     <input id="theme" type="button" onclick="themeChange()" style="display: none;" value="블랙테마">
+    <input id="nokori" type="button" href="#ex7" style="display: none;" value="남은문제">
+    <div id="nokoriCount" class="modal">
+        
+    </div>
+    <div id="wrongAnswerModal" style="text-align: center;" class="modal">
+        
+    </div>
+    <script>
+        $('#nokori').click((event) => {
+            event.preventDefault();
+            $('#nokoriCount').html(`전체문제 ${list.length}문제 중<br>푼 문제는 ${listCnt - 1}문제이며<br>남은 문제는 ${list.length - (listCnt - 1)}문제 입니다.`);
+
+            $('#nokoriCount').modal({
+                fadeDuration: 300
+            });
+        });
+    </script>
 </body>
 </html>
