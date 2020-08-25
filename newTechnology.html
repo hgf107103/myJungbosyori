@@ -258,10 +258,16 @@
             if (listCnt == list.length) {//모든 문제를 다 풀었을때
                 document.getElementById("newBtn").style.display = "block";
                 if (Array.isArray(wrongList) && wrongList.length <= 0) {
-                    $("#questBox").html(`${list.length} 문제를 다 풀었습니다.<br>틀린 문제가 없습니다.<br><br>${$("#questBox").html()}`);
+                    $('#wrongAnswerModal').html(`${list.length} 문제를 다 풀었습니다.<br>틀린 문제가 없습니다.`);
+                    $('#wrongAnswerModal').modal({
+                        fadeDuration: 150
+                    });
                     document.getElementById("reStartBtn").style.display = "none";
                 } else if (Array.isArray(wrongList) && wrongList.length > 0) {
-                    $("#questBox").html(`${list.length} 문제를 다 풀었습니다.<br>틀린 문제 : ${wrongList.length}문제<br><br>${$("#questBox").html()}`);
+                    $('#wrongAnswerModal').html(`${list.length} 문제를 다 풀었습니다.<br>틀린 문제 : ${wrongList.length}문제`);
+                    $('#wrongAnswerModal').modal({
+                        fadeDuration: 150
+                    });
                     document.getElementById("reStartBtn").style.display = "block";
                 }
                 document.getElementById("myAnswer").style.display = "none";
