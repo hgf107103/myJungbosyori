@@ -255,7 +255,9 @@
             $("#sayBtn").val(`답맞추기`);
             sayChance = 10;
 
-            if (listCnt == list.length) {//모든 문제를 다 풀었을때
+            $('html').scrollTop(window.innerHeight * 2　, 0);
+            setTimeout(() => {
+                if (listCnt == list.length) {//모든 문제를 다 풀었을때
                 document.getElementById("newBtn").style.display = "block";
                 if (Array.isArray(wrongList) && wrongList.length <= 0) {
                     $('#wrongAnswerModal').html(`${list.length} 문제를 다 풀었습니다.<br>틀린 문제가 없습니다.`);
@@ -271,10 +273,14 @@
                     document.getElementById("reStartBtn").style.display = "block";
                 }
                 document.getElementById("myAnswer").style.display = "none";
+                $('html').scrollTop(window.innerHeight * 2　, 0);
                 return;
             }
 
             document.getElementById("nextBtn").style.display = "block";
+            $('html').scrollTop(window.innerHeight * 2　, 0);
+            }, 2000)
+            
             
         }
 
@@ -282,6 +288,7 @@
         function nextAnswerFunction() {//다음문제 함수
             sayAnswerCnt++
             listCnt++;
+            $('html').scrollTop(0　, 0);
             //$("#questBox").text(list[listCnt - 1].quest);
             $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}<p>`);
 
