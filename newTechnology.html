@@ -175,6 +175,23 @@
             transition: all ease 0.5s;
         }
 
+        input#fullscreen {
+            padding: 10px 15px;
+            position: fixed;
+            font-size: 22px;
+            top: 116px;
+            right: 20px;
+            border: 1px solid rgb(150,150,150);
+            border-radius: 5px;
+            background-color: rgb(250,250,250);
+            cursor: pointer;
+            transition: all ease 0.5s;
+        }
+        input#fullscreen:hover {
+            border: 1px solid black;
+            transition: all ease 0.5s;
+        }
+
         hr {
             border-color: black;
             margin-top: 10px;
@@ -211,6 +228,7 @@
             document.getElementById("myAnswer").style.display = "block";
             document.getElementById("theme").style.display = "block";
             document.getElementById("nokori").style.display = "block";
+            document.getElementById("fullscreen").style.display = "block";
             count();
             
         }
@@ -443,9 +461,41 @@
             }
             
         }
+
+
+
+
+
+        function openFullScreenMode() {
+            if (document.documentElement.requestFullscreen)
+                document.documentElement.requestFullscreen();
+            else if (document.documentElement.webkitRequestFullscreen) // Chrome, Safari (webkit)
+                document.documentElement.webkitRequestFullscreen();
+            else if (document.documentElement.mozRequestFullScreen) // Firefox
+                document.documentElement.mozRequestFullScreen();
+            else if (document.documentElement.msRequestFullscreen) // IE or Edge
+                document.documentElement.msRequestFullscreen();
+}
+
+// 전체화면 해제
+        function closeFullScreenMode() {
+            if (document.exitFullscreen)
+                document.exitFullscreen();
+            else if (document.webkitExitFullscreen) // Chrome, Safari (webkit)
+                document.webkitExitFullscreen();
+            else if (document.mozCancelFullScreen) // Firefox
+                document.mozCancelFullScreen();
+            else if (document.msExitFullscreen) // IE or Edge
+                document.msExitFullscreen();
+}
+
+
+
+
     </script>
     <input id="theme" type="button" onclick="themeChange()" style="display: none;" value="블랙테마">
     <input id="nokori" type="button" href="#ex7" style="display: none;" value="남은문제">
+    <input id="fullscreen" type="button" style="display: none;" value="전체화면">
     <div id="nokoriCount" class="modal">
         
     </div>
@@ -461,6 +511,22 @@
                 fadeDuration: 300
             });
         });
+
+        $('#fullscreen').click((event) => {
+            event.preventDefault();
+
+            if ($('#fullscreen').val() == '전체화면') {
+                openFullScreenMode();
+                $('#fullscreen').val('일반화면');
+                return;
+            }
+
+            if ($('#fullscreen').val() == '일반화면') {
+                closeFullScreenMode();
+                $('#fullscreen').val('전체화면');
+                return;
+            }
+        })
     </script>
 </body>
 </html>
