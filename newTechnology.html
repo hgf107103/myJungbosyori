@@ -36,7 +36,7 @@
         }
         header input {
             text-align: center;
-            width: 10%;
+            width: 5%;
             cursor: default;
             padding: 5px 20px;
             font-size: 25px;
@@ -181,17 +181,20 @@
         }
     </style>
     <script>
-        let lapCnt = 1;
-        let sayAnswerCnt = 0;
+        let lapCnt = 1; //회차
+        let wronglap = 0;
+        let sayAnswerCnt = 0; //대답한 문제수
+        let inAnswerCnt = 0; //남은 문제 수
         let correctAnswerRate = 0;
-        let listCnt = 1;
-        let list;
+        let listCnt = 1; //현재 배열 내 문제 번호
+        let list; // 문제 리스트
         let sayChance = 10;
-        let wrongList = new Array;
+        let wrongList = new Array; //틀린 문제 리스트
 
         function count() {//카운터 표시하는 함수
             $("#lap").val(lapCnt);
             $("#sayAnswer").val(sayAnswerCnt);
+            $("#inAnswer").val((inAnswerCnt + 1) - listCnt);
             if (sayAnswerCnt >= 1) {
                 $("#correctAnswer").val(`${Math.floor((correctAnswerRate / sayAnswerCnt) * 100)}%`);
             }
@@ -200,6 +203,7 @@
 
             alert('시작합니다.');
             list = getList();
+            inAnswerCnt = list.length;
             shuffle(list);
             $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}</p>`);
             document.getElementById("startBtn").style.display = "none";
@@ -300,9 +304,14 @@
 
 
         function newAnswerFunction() {//새로 시작하는 함수
-            lapCnt++;
+
+            if (lapCnt == '오답') {
+                lapCnt = wronglap + 1;
+            }
+
             count();
             list = getList();
+            inAnswerCnt = list.length;
             shuffle(list);
             listCnt = 0;
             document.getElementById("newBtn").style.display = "none";
@@ -313,7 +322,7 @@
 
 
 
-        function reQuestStartFunction() {
+        function reQuestStartFunction() {//오답풀이함수
             let temp = new Array;
             
             $.each(wrongList, (index, item) => {
@@ -321,8 +330,11 @@
             })
             list = temp;
             wrongList = [];
+            inAnswerCnt = list.length;
 
-            lapCnt++;
+            wronglap = lapCnt;
+            lapCnt = '오답';
+
             count();
             shuffle(list);
             listCnt = 0;
@@ -350,6 +362,7 @@
     <header>
         <label>현재 회차 <input class="headerInput" type="text" name="lap" id="lap" readonly value="0"></label>
         <label>　푼 문제 <input class="headerInput" type="text" name="sayAnswer" id="sayAnswer" readonly value="0"></label>
+        <label>　남은 문제 <input class="headerInput" type="text" name="sayAnswer" id="inAnswer" readonly value="0"></label>
         <label>　정답률 <input class="headerInput" type="text" name="correctAnswer" id="correctAnswer" readonly value="0%"></label>
     </header>
     <div id="questBox">
