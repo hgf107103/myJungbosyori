@@ -202,7 +202,7 @@
         let wronglap = 0;
         let sayAnswerCnt = 0; //대답한 문제수
         let inAnswerCnt = 0; //남은 문제 수
-        let correctAnswerRate = 0;
+        let correctAnswerRate = 0; //정답률
         let listCnt = 1; //현재 배열 내 문제 번호
         let list; // 문제 리스트
         let sayChance = 5;
@@ -210,10 +210,13 @@
 
         function count() {//카운터 표시하는 함수
             $("#lap").val(lapCnt);
-            $("#sayAnswer").val(sayAnswerCnt);
+            $("#sayAnswer").val(listCnt - 1);
             $("#inAnswer").val((inAnswerCnt + 1) - listCnt);
-            if (sayAnswerCnt >= 1) {
-                $("#correctAnswer").val(`${Math.floor((correctAnswerRate / sayAnswerCnt) * 100)}%`);
+            if (listCnt - 1 >= 1) {
+                $("#correctAnswer").val(`${Math.floor((correctAnswerRate / (listCnt - 1)) * 100)}%`);
+            }
+            if (listCnt - 1 < 1) {
+                $("#correctAnswer").val(`0%`);
             }
         }
         function start() {//문제풀이 시작함수
@@ -228,7 +231,6 @@
             document.getElementById("myAnswer").style.display = "block";
             document.getElementById("theme").style.display = "block";
             document.getElementById("nokori").style.display = "block";
-            document.getElementById("fullscreen").style.display = "block";
             count();
             
         }
@@ -310,6 +312,7 @@
         function nextAnswerFunction() {//다음문제 함수
             sayAnswerCnt++
             listCnt++;
+            
             $('html').scrollTop(0　, 0);
             //$("#questBox").text(list[listCnt - 1].quest);
             $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}<p>`);
@@ -327,7 +330,7 @@
                 lapCnt = wronglap + 1;
             }
 
-            count();
+            correctAnswerRate = 0;
             list = getList();
             inAnswerCnt = list.length;
             shuffle(list);
@@ -349,11 +352,12 @@
             list = temp;
             wrongList = [];
             inAnswerCnt = list.length;
-
-            wronglap = lapCnt;
+            if (lapCnt != '오답') {
+                wronglap = lapCnt;
+            }
             lapCnt = '오답';
+            correctAnswerRate = 0;
 
-            count();
             shuffle(list);
             listCnt = 0;
             document.getElementById("newBtn").style.display = "none";
@@ -475,7 +479,7 @@
                 document.documentElement.mozRequestFullScreen();
             else if (document.documentElement.msRequestFullscreen) // IE or Edge
                 document.documentElement.msRequestFullscreen();
-}
+        }
 
 // 전체화면 해제
         function closeFullScreenMode() {
@@ -487,7 +491,7 @@
                 document.mozCancelFullScreen();
             else if (document.msExitFullscreen) // IE or Edge
                 document.msExitFullscreen();
-}
+        }
 
 
 
@@ -495,7 +499,6 @@
     </script>
     <input id="theme" type="button" onclick="themeChange()" style="display: none;" value="블랙테마">
     <input id="nokori" type="button" href="#ex7" style="display: none;" value="남은문제">
-    <input id="fullscreen" type="button" style="display: none;" value="전체화면">
     <div id="nokoriCount" class="modal">
         
     </div>
