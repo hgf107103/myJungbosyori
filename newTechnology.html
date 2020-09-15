@@ -253,7 +253,9 @@
 
             } else if ($("#myAnswer").val() != list[listCnt - 1].korAnswer || $("#myAnswer").val() != list[listCnt - 1].engAnswer || $("#myAnswer").val() != list[listCnt - 1].engFullname || $("#myAnswer").val() == "") {
                 
-                sayChance--;
+                alert(`틀렸습니다.`);
+
+                /*sayChance--;
                 $('#wrongAnswerModal').html(`틀렸습니다<br>남은 기회 : ${sayChance}회`);
                 $('#wrongAnswerModal').modal({
                     fadeDuration: 300
@@ -261,10 +263,11 @@
                 $("#myAnswer").val('');
                 $("#sayBtn").val(`남은기회 ${sayChance}회`);
                 if (sayChance == 0) {
-                    wrongList.push(listCnt - 1);
-                    seeAnswerFunction();
-                    return;
-                }
+                    
+                }*/
+                wrongList.push(listCnt - 1);
+                seeAnswerFunction();
+                return;
             }
 
             document.getElementById("seeBtn").style.display = "block";
@@ -390,9 +393,12 @@
     <div id="questBox">
         <h1 style="color: red;">정보처리 산업기사 신기술 동향 문제풀이</h1>
         <br>
-        <h2>모든 문제는 5번의 답 제출 기회가 주어집니다.</h2>
+        <h2>모든 문제는 한번에 맞춰야 합니다.</h2>
+        <h2>(실제 시험에서도 기회는 한번이기 때문입니다.)</h2>
         <h2>문제를 모두 푼 후에 오답만을 모아 다시 풀 수 있습니다.</h2>
         <h2>정답이 맞는데도 불구하고 오답이라고 나오는 경우는 띄어쓰기가 틀린 것입니다.</h2>
+        <h2>해답 화면이 나온후 대략 2초 후에 다음으로 넘어가는 버튼이 나옵니다.</h2>
+        <h2>이는 해답을 읽지도 않고 대충 외워 넘어가려는 것을 방지하기 위함입니다.</h2>
         <br>
         <h2>지문은 길벗 출판사의 시나공 정보처리산업기사의 신기술동향 페이지를 참고했습니다.</h2>
         <h2>저는 이 페이지로 금전적 이득을 취하려는 생각이 전혀 없음을 미리 밝히는 바입니다.</h2>
