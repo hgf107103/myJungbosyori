@@ -221,17 +221,20 @@
         }
         function start() {//문제풀이 시작함수
 
-            alert('시작합니다.');
-            list = getList();
-            inAnswerCnt = list.length;
-            shuffle(list);
-            $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}</p>`);
-            document.getElementById("startBtn").style.display = "none";
-            document.getElementById("sayBtn").style.display = "block";
-            document.getElementById("myAnswer").style.display = "block";
-            document.getElementById("theme").style.display = "block";
-            document.getElementById("nokori").style.display = "block";
-            count();
+            let startCheck = confirm('문제풀이 시작할까요?');
+            if (startCheck) {
+                list = getList();
+                inAnswerCnt = list.length;
+                shuffle(list);
+                $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}</p>`);
+                document.getElementById("startBtn").style.display = "none";
+                document.getElementById("sayBtn").style.display = "block";
+                document.getElementById("myAnswer").style.display = "block";
+                document.getElementById("theme").style.display = "block";
+                document.getElementById("nokori").style.display = "block";
+                count();
+            }
+            
             
         }
         function sayAnswerFunction() {//문제 답 날렸을떄 반응
@@ -240,6 +243,10 @@
                 $("#myAnswer").val('');
                 correctAnswerRate++;
                 document.getElementById("sayBtn").style.display = "none";
+                $('#wrongAnswerModal').html(`정답입니다`);
+                $('#wrongAnswerModal').modal({
+                    fadeDuration: 300
+                });
                 seeAnswerFunction();
                 return;
 
@@ -248,23 +255,23 @@
                 $("#myAnswer").val('');
                 correctAnswerRate++;
                 document.getElementById("sayBtn").style.display = "none";
+                $('#wrongAnswerModal').html(`정답입니다`);
+                $('#wrongAnswerModal').modal({
+                    fadeDuration: 300
+                });
                 seeAnswerFunction();
                 return;
 
             } else if ($("#myAnswer").val() != list[listCnt - 1].korAnswer || $("#myAnswer").val() != list[listCnt - 1].engAnswer || $("#myAnswer").val() != list[listCnt - 1].engFullname || $("#myAnswer").val() == "") {
                 
-                alert(`틀렸습니다.`);
+                
+                $("#myAnswer").val('');
 
-                /*sayChance--;
-                $('#wrongAnswerModal').html(`틀렸습니다<br>남은 기회 : ${sayChance}회`);
+                $('#wrongAnswerModal').html(`틀렸습니다`);
                 $('#wrongAnswerModal').modal({
                     fadeDuration: 300
                 });
-                $("#myAnswer").val('');
-                $("#sayBtn").val(`남은기회 ${sayChance}회`);
-                if (sayChance == 0) {
-                    
-                }*/
+                
                 wrongList.push(listCnt - 1);
                 seeAnswerFunction();
                 return;
@@ -319,6 +326,7 @@
             $('html').scrollTop(0　, 0);
             //$("#questBox").text(list[listCnt - 1].quest);
             $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}<p>`);
+
 
             document.getElementById("nextBtn").style.display = "none";
             document.getElementById("sayBtn").style.display = "block";
