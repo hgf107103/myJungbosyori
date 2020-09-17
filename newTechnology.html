@@ -50,6 +50,24 @@
             border-bottom: 2px solid rgb(100,100,100);
             transition: all ease 1s;
         }
+
+        
+
+        input[type=text]#answerCheckTextBox {
+            margin: auto;
+            padding: 5px 0px;
+            width: 10%;
+            cursor: default;
+            border: none;
+            border-radius: 5px;
+            color: red;
+            font-size: 40px;
+            text-align: center;
+        }
+
+
+
+
         div {
             margin: auto;
             width: 50%;
@@ -95,7 +113,7 @@
             width: 30%;
         }
 
-
+        
 
         div#answerBox{
             padding: 20px 30px;
@@ -243,10 +261,9 @@
                 $("#myAnswer").val('');
                 correctAnswerRate++;
                 document.getElementById("sayBtn").style.display = "none";
-                $('#wrongAnswerModal').html(`정답입니다`);
-                $('#wrongAnswerModal').modal({
-                    fadeDuration: 300
-                });
+
+                $('#answerCheckTextBox').val('정답입니다.');
+
                 seeAnswerFunction();
                 return;
 
@@ -255,10 +272,9 @@
                 $("#myAnswer").val('');
                 correctAnswerRate++;
                 document.getElementById("sayBtn").style.display = "none";
-                $('#wrongAnswerModal').html(`정답입니다`);
-                $('#wrongAnswerModal').modal({
-                    fadeDuration: 300
-                });
+                
+                $('#answerCheckTextBox').val('정답입니다.');
+                
                 seeAnswerFunction();
                 return;
 
@@ -267,10 +283,7 @@
                 
                 $("#myAnswer").val('');
 
-                $('#wrongAnswerModal').html(`틀렸습니다`);
-                $('#wrongAnswerModal').modal({
-                    fadeDuration: 300
-                });
+                $('#answerCheckTextBox').val('오답입니다.');
                 
                 wrongList.push(listCnt - 1);
                 seeAnswerFunction();
@@ -286,6 +299,8 @@
             document.getElementById("sayBtn").style.display = "none";
             document.getElementById("seeBtn").style.display = "none";
             document.getElementById("myAnswer").style.display = "none";
+            $('#answerCheckTextBox').css('display', 'block');
+
             $("#sayBtn").val(`답맞추기`);
             sayChance = 5;
 
@@ -331,6 +346,7 @@
             document.getElementById("nextBtn").style.display = "none";
             document.getElementById("sayBtn").style.display = "block";
             document.getElementById("myAnswer").style.display = "block";
+            $('#answerCheckTextBox').css('display', 'none');
             count();
         }
 
@@ -414,6 +430,7 @@
         <br>
         <h2>문제풀이에 있어 오류가 발생한 경우 hgf107103@gmail.com으로 연락바랍니다.</h2>
     </div>
+    <input type="text" readonly id="answerCheckTextBox" style="display: none;" value="">
     <div id="answerBox">
         <input type="text" onkeyup="enterkey()" name="myAnswer" id="myAnswer" style="display: none;" placeholder="한글 및 영어 약자, 영어 풀네임으로 적어주십시오">
         <input type="button" class="answerBtnClass" onclick="start()" id="startBtn" style="display: block;" value="시작하기">
