@@ -66,6 +66,30 @@
         }
 
 
+        div#meterDiv {
+            text-align: center;
+        }
+
+        div meter#myMeter {
+            width: 70%;
+            display: inline-block;
+            margin: auto;
+        }
+
+        div p.meterText {
+            display: inline-block;
+            margin: auto;
+            width: 10%;
+            text-align: center;
+            transition: all ease 1s;
+        }
+
+        div p#meterValue {
+            margin-right: 1%;
+        }
+        div p#meterMax {
+            margin-left: 1%;
+        }
 
 
         div {
@@ -112,6 +136,7 @@
             color: rgb(80,80,80);
             width: 30%;
         }
+
 
         
 
@@ -228,14 +253,20 @@
 
         function count() {//카운터 표시하는 함수
             $("#lap").val(lapCnt);
-            $("#sayAnswer").val(listCnt - 1);
-            $("#inAnswer").val((inAnswerCnt + 1) - listCnt);
+            //$("#sayAnswer").val(listCnt - 1);
+            //$("#inAnswer").val((inAnswerCnt + 1) - listCnt);
             if (listCnt - 1 >= 1) {
                 $("#correctAnswer").val(`${Math.floor((correctAnswerRate / (listCnt - 1)) * 100)}%`);
             }
             if (listCnt - 1 < 1) {
                 $("#correctAnswer").val(`0%`);
             }
+
+            $("#myMeter").attr('max',`${list.length}`);
+            $("#meterMax").text(`${list.length - (listCnt - 1)}`);
+
+            $("#myMeter").val(`${listCnt - 1}`);
+            $("#meterValue").text(`${listCnt - 1}`);
         }
         function start() {//문제풀이 시작함수
 
@@ -250,6 +281,9 @@
                 document.getElementById("myAnswer").style.display = "block";
                 document.getElementById("theme").style.display = "block";
                 document.getElementById("nokori").style.display = "block";
+
+                
+
                 count();
             }
             
@@ -346,6 +380,7 @@
             document.getElementById("nextBtn").style.display = "none";
             document.getElementById("sayBtn").style.display = "block";
             document.getElementById("myAnswer").style.display = "block";
+            $('#myAnswer').focus();
             $('#answerCheckTextBox').css('display', 'none');
             count();
         }
@@ -410,10 +445,13 @@
 <body>
     <header>
         <label>현재 회차 <input class="headerInput" type="text" name="lap" id="lap" readonly value="0"></label>
-        <label>　푼 문제 <input class="headerInput" type="text" name="sayAnswer" id="sayAnswer" readonly value="0"></label>
-        <label>　남은 문제 <input class="headerInput" type="text" name="sayAnswer" id="inAnswer" readonly value="0"></label>
+        <!--label>　푼 문제 <input class="headerInput" type="text" name="sayAnswer" id="sayAnswer" readonly value="0"></label>
+        <label>　남은 문제 <input class="headerInput" type="text" name="sayAnswer" id="inAnswer" readonly value="0"></label-->
         <label>　정답률 <input class="headerInput" type="text" name="correctAnswer" id="correctAnswer" readonly value="0%"></label>
     </header>
+    <div id="meterDiv">
+        <p class="meterText" id="meterValue"></p><meter id="myMeter" max="1" min="0" value="0"></meter><p class="meterText" id="meterMax"></p>
+    </div>
     <div id="questBox">
         <h1 style="color: red;">정보처리 산업기사 신기술 동향 문제풀이</h1>
         <br>
@@ -460,6 +498,8 @@
                     $("#myAnswer").css("background-color", "black");
                     $("#myAnswer").css("color", "white");
 
+                    $(".meterText").css("color", "white");
+
 
                     $("#hrs").css("border-color", "white");
 
@@ -483,6 +523,8 @@
 
                     $("#myAnswer").css("background-color", "white");
                     $("#myAnswer").css("color", "black");
+
+                    $(".meterText").css("color", "black");
 
                     $("#hrs").css("border-color", "black");
 
