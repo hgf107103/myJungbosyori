@@ -282,7 +282,7 @@ function getList() {
     list.push(new question("개인정보 위험관리 기술이다. 최근 심각한 위험으로 대두되고 있는 개인정보 침해위험을 관리하기 위한 핵심 기술로 암호화, 익명화 등 개인정보를 보호하는 기술에서 사용자가 직접 개인정보를 통제하기 위한 기술까지 다양한 사용자 프라이버시 보호 기술을 통칭한다.", "PET", "프라이버시 강화 기술", "Privacy Enhancing Technology", "보안 관리"));
     list.push(new question("범죄의 증거로 사용될 수 있는 컴퓨터, 휴대전화, 인터넷 등의 디지털 저장매체에 존재하는 디지털 정보를 수집하는 디지털 수사 과정을 말한다.", "", "디지털 포렌식", "Digital Forensics", "보안 관리"));
     list.push(new question("데이터의 안전한 배포를 활성화하거나 불법 배포를 방지하여 인터넷이나 기타 디지털 매체를 통해 유통되는 데이터의 저작권을 보호하기 위한 시스템이다. 이 시스템은 보통 데이터를 암호화하여 인증된 사용자만이 접속할 수 있게 하거나, 디지털 워터마크의 사용 또는 이와 유사한 방식으로 콘텐츠를 작성하여 콘텐츠가 제한 없이 보급되지 않도록 하여 지적재산권을 보호한다.", "DRM", "디지털 저작권 관리", "Digital Rights Management", "보안 관리"));
-    list.push(new question("", "ONS", "객체명 서비스", "Object Naming Service", "보안 관리"));
+    list.push(new question("객체명서비스", "ONS", "객체명 서비스", "Object Naming Service", "보안 관리"));
     list.push(new question("", "", "", "", "보안 관리"));
 
 
