@@ -246,30 +246,30 @@
         let sayAnswerCnt = 0; //대답한 문제수
         let inAnswerCnt = 0; //남은 문제 수
         let correctAnswerRate = 0; //정답률
-        let listCnt = 1; //현재 배열 내 문제 번호
+        let listCnt = 0; //현재 배열 내 문제 번호
         let list; // 문제 리스트
         let sayChance = 5;
         let wrongList = new Array; //틀린 문제 리스트
 
         function count() {//카운터 표시하는 함수
             //$("#lap").val(lapCnt);
-            //$("#sayAnswer").val(listCnt - 1);
+            //$("#sayAnswer").val(listCnt);
             //$("#inAnswer").val((inAnswerCnt + 1) - listCnt);
 
 
 
-            if (listCnt - 1 >= 1) {
-                $("#correctAnswer").val(`${Math.floor((correctAnswerRate / (listCnt - 1)) * 100)}%`);
+            if (listCnt >= 1) {
+                $("#correctAnswer").val(`${Math.floor((correctAnswerRate / (listCnt)) * 100)}%`);
             }
-            if (listCnt - 1 < 1) {
+            if (listCnt < 1) {
                 $("#correctAnswer").val(`0%`);
             }
 
             $("#rightAnswer").val(`${correctAnswerRate}`);
             $("#wrongAnswer").val(`${wrongList.length}`);
 
-            $("#myMeter").val(`${listCnt - 1}`);
-            $("#meterValue").text(`${listCnt - 1}`);
+            $("#myMeter").val(`${listCnt}`);
+            $("#meterValue").text(`${listCnt}`);
         }
 
 
@@ -281,7 +281,7 @@
                 list = getList();
                 inAnswerCnt = list.length;
                 shuffle(list);
-                $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}</p>`);
+                $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt].category}</h3><p>${list[listCnt].quest}</p>`);
                 document.getElementById("startBtn").style.display = "none";
                 document.getElementById("sayBtn").style.display = "block";
                 document.getElementById("myAnswer").style.display = "block";
@@ -298,7 +298,7 @@
             
         }
         function sayAnswerFunction() {//문제 답 날렸을떄 반응
-            if (($("#myAnswer").val() == list[listCnt - 1].korAnswer || $("#myAnswer").val() == list[listCnt - 1].engAnswer || $("#myAnswer").val() == list[listCnt - 1].engFullname) && $("#myAnswer").val() != "") {
+            if (($("#myAnswer").val() == list[listCnt].korAnswer || $("#myAnswer").val() == list[listCnt].engAnswer || $("#myAnswer").val() == list[listCnt].engFullname) && $("#myAnswer").val() != "") {
                
                 $("#myAnswer").val('');
                 correctAnswerRate++;
@@ -309,7 +309,7 @@
                 seeAnswerFunction();
                 return;
 
-            } else if (($("#myAnswer").val().toUpperCase() == list[listCnt - 1].korAnswer.toUpperCase() || $("#myAnswer").val().toUpperCase() == list[listCnt - 1].engAnswer.toUpperCase() || $("#myAnswer").val().toUpperCase() == list[listCnt - 1].engFullname.toUpperCase()) && $("#myAnswer").val() != "") {
+            } else if (($("#myAnswer").val().toUpperCase() == list[listCnt].korAnswer.toUpperCase() || $("#myAnswer").val().toUpperCase() == list[listCnt].engAnswer.toUpperCase() || $("#myAnswer").val().toUpperCase() == list[listCnt].engFullname.toUpperCase()) && $("#myAnswer").val() != "") {
 
                 $("#myAnswer").val('');
                 correctAnswerRate++;
@@ -320,14 +320,14 @@
                 seeAnswerFunction();
                 return;
 
-            } else if ($("#myAnswer").val() != list[listCnt - 1].korAnswer || $("#myAnswer").val() != list[listCnt - 1].engAnswer || $("#myAnswer").val() != list[listCnt - 1].engFullname || $("#myAnswer").val() == "") {
+            } else if ($("#myAnswer").val() != list[listCnt].korAnswer || $("#myAnswer").val() != list[listCnt].engAnswer || $("#myAnswer").val() != list[listCnt].engFullname || $("#myAnswer").val() == "") {
                 
                 
                 $("#myAnswer").val('');
 
                 $('#answerCheckTextBox').val('오답입니다.');
                 
-                wrongList.push(listCnt - 1);
+                wrongList.push(listCnt);
                 seeAnswerFunction();
                 return;
             }
@@ -337,7 +337,7 @@
         }
 
         function seeAnswerFunction() {//해답 보여주기 함수
-            $("#questBox").html(`${$("#questBox").html()}<br><hr id="hrs"><br><p>정답</p><br><table><tr><td class='tableLan'>한글</td><td><span>${list[listCnt - 1].korAnswer}</span></td></tr><tr><td class='tableLan'>영어(약)</td><td><span>${list[listCnt - 1].engAnswer}</span></td></tr><tr><td class='tableLan'>영어(풀)</td><td><span>${list[listCnt - 1].engFullname}</span></td></tr></table>`);
+            $("#questBox").html(`${$("#questBox").html()}<br><hr id="hrs"><br><p>정답</p><br><table><tr><td class='tableLan'>한글</td><td><span>${list[listCnt].korAnswer}</span></td></tr><tr><td class='tableLan'>영어(약)</td><td><span>${list[listCnt].engAnswer}</span></td></tr><tr><td class='tableLan'>영어(풀)</td><td><span>${list[listCnt].engFullname}</span></td></tr></table>`);
             document.getElementById("sayBtn").style.display = "none";
             document.getElementById("seeBtn").style.display = "none";
             document.getElementById("myAnswer").style.display = "none";
@@ -350,41 +350,42 @@
 
             setTimeout(() => {
                 if (listCnt == list.length) {//모든 문제를 다 풀었을때
-                document.getElementById("newBtn").style.display = "block";
-                if (Array.isArray(wrongList) && wrongList.length <= 0) {
-                    $('#wrongAnswerModal').html(`${list.length} 문제를 다 풀었습니다.<br>틀린 문제가 없습니다.`);
-                    $('#wrongAnswerModal').modal({
-                        fadeDuration: 150
-                    });
-                    document.getElementById("reStartBtn").style.display = "none";
-                } else if (Array.isArray(wrongList) && wrongList.length > 0) {
-                    $('#wrongAnswerModal').html(`${list.length} 문제를 다 풀었습니다.<br>틀린 문제 : ${wrongList.length}문제`);
-                    $('#wrongAnswerModal').modal({
-                        fadeDuration: 150
-                    });
-                    document.getElementById("reStartBtn").style.display = "block";
+                    document.getElementById("newBtn").style.display = "block";
+                    if (Array.isArray(wrongList) && wrongList.length <= 0) {
+                        $('#wrongAnswerModal').html(`${list.length} 문제를 다 풀었습니다.<br>틀린 문제가 없습니다.`);
+                        $('#wrongAnswerModal').modal({
+                            fadeDuration: 150
+                        });
+                        document.getElementById("reStartBtn").style.display = "none";
+                    } else if (Array.isArray(wrongList) && wrongList.length > 0) {
+                        $('#wrongAnswerModal').html(`${list.length} 문제를 다 풀었습니다.<br>틀린 문제 : ${wrongList.length}문제<br>정답률 : ${Math.floor(((list.length - wrongList.length) / list.length) * 100)}%`);
+                        $('#wrongAnswerModal').modal({
+                            fadeDuration: 150
+                        });
+                        document.getElementById("reStartBtn").style.display = "block";
+                    }
+                    document.getElementById("myAnswer").style.display = "none";
+                    $('html').scrollTop(window.innerHeight * 2　, 0);
+                    return;
                 }
-                document.getElementById("myAnswer").style.display = "none";
-                $('html').scrollTop(window.innerHeight * 2　, 0);
-                return;
-            }
 
-            document.getElementById("nextBtn").style.display = "block";
-            $('html').scrollTop(window.innerHeight * 2　, 0);  
+                document.getElementById("nextBtn").style.display = "block";
+                $('html').scrollTop(window.innerHeight * 2　, 0);  
             
             }, 2000)
-            
-            
+            sayAnswerCnt++
+            listCnt++;
+            count();
         }
 
 
         function nextAnswerFunction() {//다음문제 함수
-            sayAnswerCnt++
-            listCnt++;
+            //sayAnswerCnt++
+            //listCnt++;
             
             $('html').scrollTop(0　, 0);
-            //$("#questBox").text(list[listCnt - 1].quest);
-            $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt - 1].category}</h3><p>${list[listCnt - 1].quest}<p>`);
+            //$("#questBox").text(list[listCnt].quest);
+            $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt].category}</h3><p>${list[listCnt].quest}<p>`);
 
 
             document.getElementById("nextBtn").style.display = "none";
@@ -409,7 +410,8 @@
             listCnt = 0;
             document.getElementById("newBtn").style.display = "none";
             document.getElementById("myAnswer").style.display = "block";
-
+            document.getElementById("reStartBtn").style.display = "none";
+            
             $("#myMeter").attr('max',`${list.length}`);
             $("#meterMax").text(`${list.length}`);
             nextAnswerFunction();
@@ -490,7 +492,7 @@
         <input type="text" onkeyup="enterkey()" name="myAnswer" id="myAnswer" style="display: none;" placeholder="한글 및 영어 약자, 영어 풀네임으로 적어주십시오">
         <input type="button" class="answerBtnClass" onclick="start()" id="startBtn" style="display: block;" value="시작하기">
         <input type="button" class="answerBtnClass" onclick="sayAnswerFunction()" id="sayBtn" style="display: none;" value="답맞추기">
-        <input type="button" class="answerBtnClass" onclick="let check = confirm('해답을 보시겠습니까?'); if(check == true) { wrongList.push(listCnt - 1); seeAnswerFunction();}" id="seeBtn" style="display: none;" value="해답보기">
+        <input type="button" class="answerBtnClass" onclick="let check = confirm('해답을 보시겠습니까?'); if(check == true) { wrongList.push(listCnt); seeAnswerFunction();}" id="seeBtn" style="display: none;" value="해답보기">
         <input type="button" class="answerBtnClass" onclick="nextAnswerFunction()" id="nextBtn" style="display: none;" value="다음문제">
         <input type="button" class="answerBtnClass" onclick="newAnswerFunction()" id="newBtn" style="display: none;" value="처음부터">
         <input type="button" class="answerBtnClass" onclick="reQuestStartFunction()" id="reStartBtn" style="display: none;" value="오답풀기">
@@ -598,7 +600,7 @@
     <script>
         $('#nokori').click((event) => {
             event.preventDefault();
-            $('#nokoriCount').html(`전체문제 ${list.length}문제 중<br>푼 문제는 ${listCnt - 1}문제이며<br>남은 문제는 ${list.length - (listCnt - 1)}문제 입니다.`);
+            $('#nokoriCount').html(`전체문제 ${list.length}문제 중<br>푼 문제는 ${listCnt}문제이며<br>남은 문제는 ${list.length - (listCnt)}문제 입니다.`);
 
             $('#nokoriCount').modal({
                 fadeDuration: 300
