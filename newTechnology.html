@@ -319,6 +319,14 @@
                 seeAnswerFunction();
                 return;
 
+            } else if ($("#myAnswer").val().replace(/ /g, '') == list[listCnt].korAnswer.replace(/ /g, '') || $("#myAnswer").val().replace(/ /g, '') == list[listCnt].engAnswer.replace(/ /g, '') || $("#myAnswer").val().replace(/ /g, '') == list[listCnt].engFullname.replace(/ /g, '')) {
+                
+
+                $('#answerCheckTextBox').val('정답입니다.');
+                
+                wrongList.push(listCnt);
+                seeAnswerFunction();
+                return;
             } else if ($("#myAnswer").val() != list[listCnt].korAnswer || $("#myAnswer").val() != list[listCnt].engAnswer || $("#myAnswer").val() != list[listCnt].engFullname || $("#myAnswer").val() == "") {
                 
 
@@ -327,7 +335,7 @@
                 wrongList.push(listCnt);
                 seeAnswerFunction();
                 return;
-            }
+            } 
 
             document.getElementById("seeBtn").style.display = "block";
             
@@ -476,7 +484,6 @@
         <h2>모든 문제는 한번에 맞춰야 합니다.</h2>
         <h2>(실제 시험에서도 기회는 한번이기 때문입니다.)</h2>
         <h2>문제를 모두 푼 후에 오답만을 모아 다시 풀 수 있습니다.</h2>
-        <h2>정답이 맞는데도 불구하고 오답이라고 나오는 경우는 띄어쓰기가 틀린 것입니다.</h2>
         <h2>해답 화면이 나온후 대략 2초 후에 다음으로 넘어가는 버튼이 나옵니다.</h2>
         <h2>이는 해답을 읽지도 않고 대충 외워 넘어가려는 것을 방지하기 위함입니다.</h2>
         <br>
