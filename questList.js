@@ -33,6 +33,30 @@ function shuffle(list) {
 }
 
 
+function answerCheck(myAnswer, listObject) {
+    try {
+        if (myAnswer == '' || myAnswer == ' ') {
+            return false;
+        }
+
+        if (myAnswer == listObject.korAnswer || myAnswer == listObject.engAnswer || myAnswer == listObject.engFullname) {
+            return true;
+        }
+
+        if (myAnswer.replace(/ /g, '').toUpperCase() == listObject.korAnswer.replace(/ /g, '').toUpperCase() || myAnswer.replace(/ /g, '').toUpperCase() == listObject.engAnswer.replace(/ /g, '').toUpperCase() || myAnswer.replace(/ /g, '').toUpperCase() == listObject.engFullname.replace(/ /g, '').toUpperCase()) {
+            return true;
+        }
+
+        return false;
+
+    } catch (e) {
+        console.log(`에러발생 : ${e}`);
+        alert(`에러가 발생하였습니다.\n답은 오답처리되지만, 재시작을 하는 것이 권장됩니다.`);
+        return false;
+    }
+}
+
+
 
 
 
@@ -354,7 +378,7 @@ function getList() {
     list.push(new question("다양한 IT 기술과 방식들을 이용해 조직적으로 특정 기업이나 조직 네트워크에 침투해 활동 거점을 마련한 뒤 때를 기다리면서 보안을 무력화시키고 정보를 수집한 다음 외부로 빼돌리는 형태의 공격을 말한다. 공격 방법에는 내부자에게 악성코드가 포함된 이메일을 오랜 기간 동안 꾸준히 발송해 한 번이라도 클릭되길 기다리는 형태, 스턱스넷과 같이 악성코드가 담긴 이동식 디스크 등으로 전파하는 형태, 악성코드에 감염된 P2P 사이트에 접속하면 악성코드에 감염되는 형태 등이 있다.", "APT", "지능형 지속 위협", "Advanced Persistent Threats", "보안 위협"));
     list.push(new question("합법적으로 소유하고 있던 사용자의 도메인을 탈취하거나 DNS 이름을 속여 사용자들이 진짜 사이트로 오인하도록 유도하여 개인 정보를 훔치는 신종 인터넷 사기 수법이다. 피싱이 금융 기관 등의 웹 사이트에서 보낸 이메일로 위장하여 링크를 유도해 개인의 인증 번호나 신용카드 번호, 계좌 정보 등을 빼내는 반면, 이것은 아예 해당 사이트가 공식적으로 운영하고 있는 도메인 자체를 탈취한다. 사용자들은 늘 이용하는 사이트로 인식하여 의심하지 않고 개인 ID, 패스워드, 계좌 정보 등을 노출하는 것이 특징이다.", "", "파밍", "Pharming", "보안 위협"));
     list.push(new question("컴퓨터 보안에 있어서, 인간 상호 작용의 깊은 신뢰를 바탕으로 사람들을 속여 정상 보안 절차를 깨뜨리기 위한 비기술적 시스템 침입 수단을 말한다. 우선 통신망 보안 정보에 접근 권한이 있는 담당자와 신뢰를 쌓고 전화나 이메일을 통해 그들의 약점과 도움을 이용하는 것이다. 상대방의 자만심이나 권한을 이용하는 것, 정보의 자치를 몰라서 보안을 소홀히 하는 무능에 의존하는 것과 도청등이 일반적인 이 기술이다.", "", "사회 공학", "Social Engineering", "보안 위협"));
-    list.push(new question("사용자의 온라인 뱅킹 계정 정보를 탈취하기 위해 개발된 상용 멀웨어이다. 2007년 러시아에서 개발된 것으로 추정되는 이것은 주로 이메일 등을 통해 전파되며, 감염된 컴퓨터는 사용자의 모든 키보드 입력 정보를 지정된 곳으로 보낸다.", "", "", "Zeus", "보안 위협"));
+    list.push(new question("사용자의 온라인 뱅킹 계정 정보를 탈취하기 위해 개발된 상용 멀웨어이다. 2007년 러시아에서 개발된 것으로 추정되는 이것은 주로 이메일 등을 통해 전파되며, 감염된 컴퓨터는 사용자의 모든 키보드 입력 정보를 지정된 곳으로 보낸다.", "", "제우스", "Zeus", "보안 위협"));
     list.push(new question("악성 프로그램에 감염되어 향후에 악의적인 의도로 사용될 수 있는 다수의 컴퓨터들이 네트워크로 연결된 형태를 말한다. 해킹 또는 악성 프로그램에 감염된 컴퓨터를 네트워크로 연결하고, 해커는 이것에 연결된 컴퓨터를 원격 조종해 개인 정보 유출, 스팸 메일 발송, 다른 시스템에 대한 공격 등 악의적인 행위를 한다.", "", "봇넷", "Botnet", "보안 위협"));
     list.push(new question("다른 프로그램이나 다른 사용자를 조종하도록 악성코드에 감염된 컴퓨터를 말한다. 이러한 컴퓨터는 C&C(Command & Control) 서버의 제어를 받아 주로 DDoS 공격 등에 이용된다.", "", "좀비 피시", "Zombie PC", "보안 위협"));
     list.push(new question("특허권을 비롯한 지적 재산권을 통해 로열티 수입만으로 이익을 창출하는 특허 관리 전문 기업을 말한다. 실제로 제품을 만드는 회사가 아니므로 자신들이 보유한 특허로 다른 회사를 공격할 수는 있지만 다른 회사가 이들을 공격하여 피해를 줄 수 있는 방법이 없다는 점을 악용하여 수익을 창출한다.", "", "특허 괴물", "Patent Troll", "보안 위협"));

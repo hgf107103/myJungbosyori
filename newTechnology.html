@@ -298,7 +298,7 @@
             
         }
         function sayAnswerFunction() {//문제 답 날렸을떄 반응
-            if (($("#myAnswer").val() == list[listCnt].korAnswer || $("#myAnswer").val() == list[listCnt].engAnswer || $("#myAnswer").val() == list[listCnt].engFullname) && $("#myAnswer").val() != "") {
+            /*if (($("#myAnswer").val() == list[listCnt].korAnswer || $("#myAnswer").val() == list[listCnt].engAnswer || $("#myAnswer").val() == list[listCnt].engFullname) && $("#myAnswer").val() != "") {
                
                 correctAnswerRate++;
                 document.getElementById("sayBtn").style.display = "none";
@@ -310,7 +310,6 @@
 
             } else if (($("#myAnswer").val().toUpperCase() == list[listCnt].korAnswer.toUpperCase() || $("#myAnswer").val().toUpperCase() == list[listCnt].engAnswer.toUpperCase() || $("#myAnswer").val().toUpperCase() == list[listCnt].engFullname.toUpperCase()) && $("#myAnswer").val() != "") {
 
-                
                 correctAnswerRate++;
                 document.getElementById("sayBtn").style.display = "none";
                 
@@ -321,10 +320,11 @@
 
             } else if ($("#myAnswer").val().replace(/ /g, '') == list[listCnt].korAnswer.replace(/ /g, '') || $("#myAnswer").val().replace(/ /g, '') == list[listCnt].engAnswer.replace(/ /g, '') || $("#myAnswer").val().replace(/ /g, '') == list[listCnt].engFullname.replace(/ /g, '')) {
                 
+                correctAnswerRate++;
+                document.getElementById("sayBtn").style.display = "none";
 
                 $('#answerCheckTextBox').val('정답입니다.');
                 
-                wrongList.push(listCnt);
                 seeAnswerFunction();
                 return;
             } else if ($("#myAnswer").val() != list[listCnt].korAnswer || $("#myAnswer").val() != list[listCnt].engAnswer || $("#myAnswer").val() != list[listCnt].engFullname || $("#myAnswer").val() == "") {
@@ -335,9 +335,28 @@
                 wrongList.push(listCnt);
                 seeAnswerFunction();
                 return;
-            } 
+            } */
 
-            document.getElementById("seeBtn").style.display = "block";
+            let answerCheckBool = answerCheck($("#myAnswer").val(), list[listCnt]);
+
+            if (answerCheckBool) {
+                
+                correctAnswerRate++;
+                document.getElementById("sayBtn").style.display = "none";
+
+                $('#answerCheckTextBox').val('정답입니다.');
+                
+                seeAnswerFunction();
+                return;
+            }
+
+            $('#answerCheckTextBox').val('오답입니다.');
+                
+            wrongList.push(listCnt);
+            seeAnswerFunction();
+            return;
+
+            
             
         }
 
