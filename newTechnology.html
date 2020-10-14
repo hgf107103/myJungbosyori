@@ -308,7 +308,7 @@
                 document.getElementById("sayBtn").style.display = "none";
 
                 $('#answerCheckTextBox').val('정답입니다.');
-                
+                nowWrong = null;
                 seeAnswerFunction();
                 return;
             }
@@ -318,8 +318,6 @@
             wrongList.push(listCnt);
             
             nowWrong = list[listCnt];
-            console.log(list);
-            console.log(nowWrong);
             setTimeout(()=>{
                 $("#reSayBtn").css("display","block");
             },2000);
