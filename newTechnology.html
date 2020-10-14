@@ -320,7 +320,6 @@
             nowWrong = list[listCnt];
             console.log(list);
             console.log(nowWrong);
-            $("#reSayBtn").css("display","block");
 
             seeAnswerFunction();
 
@@ -362,6 +361,7 @@
                 }
 
                 document.getElementById("nextBtn").style.display = "block";
+                $("#reSayBtn").css("display","block");
                 $('html').scrollTop(window.innerHeight * 2　, 0);  
             
             }, 2000)
