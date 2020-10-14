@@ -250,6 +250,7 @@
         let list; // 문제 리스트
         let sayChance = 5;
         let wrongList = new Array; //틀린 문제 리스트
+        let nowWrong = null; //현재 틀린 문제
 
         function count() {//카운터 표시하는 함수
             //$("#lap").val(lapCnt);
@@ -315,7 +316,14 @@
             $('#answerCheckTextBox').val('오답입니다.');
                 
             wrongList.push(listCnt);
+            
+            nowWrong = list[listCnt];
+            console.log(list);
+            console.log(nowWrong);
+            $("#reSayBtn").css("display","block");
+
             seeAnswerFunction();
+
             return;
             
         }
@@ -357,7 +365,7 @@
                 $('html').scrollTop(window.innerHeight * 2　, 0);  
             
             }, 2000)
-            sayAnswerCnt++
+            sayAnswerCnt++;
             listCnt++;
             count();
         }
@@ -371,7 +379,7 @@
             //$("#questBox").text(list[listCnt].quest);
             $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${list[listCnt].category}</h3><p>${list[listCnt].quest}<p>`);
 
-
+            $("#reSayBtn").css("display","none");
             document.getElementById("nextBtn").style.display = "none";
             document.getElementById("sayBtn").style.display = "block";
             document.getElementById("myAnswer").style.display = "block";
@@ -432,6 +440,29 @@
         }
 
 
+
+
+
+        function againSayWrongAnswer() {//틀린문제 바로 다시풀기
+            $("#reSayBtn").css("display","none");
+
+            $("#questBox").html(`<h3 id='categoryBox'>카테고리 : ${nowWrong.category}</h3><p>${nowWrong.quest}<p>`);
+
+            $("#reSayBtn").css("display","none");
+            document.getElementById("nextBtn").style.display = "none";
+            document.getElementById("sayBtn").style.display = "block";
+            document.getElementById("myAnswer").style.display = "block";
+            $("#myAnswer").val('');
+
+            $('#myAnswer').focus();
+            $('#answerCheckTextBox').css('display', 'none');
+            sayAnswerCnt--;
+            listCnt--;
+            wrongList.pop();
+        }
+
+
+
         function enterkey() {
             if (window.event.keyCode == 13 ) {
                 if (document.getElementById("sayBtn").style.display == 'block') {
@@ -481,6 +512,7 @@
         <input type="button" class="answerBtnClass" onclick="nextAnswerFunction()" id="nextBtn" style="display: none;" value="다음문제">
         <input type="button" class="answerBtnClass" onclick="newAnswerFunction()" id="newBtn" style="display: none;" value="처음부터">
         <input type="button" class="answerBtnClass" onclick="reQuestStartFunction()" id="reStartBtn" style="display: none;" value="오답풀기">
+        <input type="button" class="answerBtnClass" onclick="againSayWrongAnswer()" id="reSayBtn" style="display: none;" value="다시풀기">
     </div>
     <script>
         function themeChange() {
