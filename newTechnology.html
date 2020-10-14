@@ -320,7 +320,9 @@
             nowWrong = list[listCnt];
             console.log(list);
             console.log(nowWrong);
-
+            setTimeout(()=>{
+                $("#reSayBtn").css("display","block");
+            },2000);
             seeAnswerFunction();
 
             return;
@@ -340,7 +342,7 @@
             $('html').scrollTop(window.innerHeight * 2　, 0);
 
             setTimeout(() => {
-                if (listCnt == list.length) {//모든 문제를 다 풀었을때
+                if (listCnt >= list.length) {//모든 문제를 다 풀었을때
                     document.getElementById("newBtn").style.display = "block";
                     if (Array.isArray(wrongList) && wrongList.length <= 0) {
                         $('#wrongAnswerModal').html(`${list.length} 문제를 다 풀었습니다.<br>틀린 문제가 없습니다.`);
@@ -361,7 +363,6 @@
                 }
 
                 document.getElementById("nextBtn").style.display = "block";
-                $("#reSayBtn").css("display","block");
                 $('html').scrollTop(window.innerHeight * 2　, 0);  
             
             }, 2000)
