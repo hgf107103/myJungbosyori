@@ -508,11 +508,11 @@
         <input type="text" onkeyup="enterkey()" name="myAnswer" id="myAnswer" style="display: none;" placeholder="한글 및 영어 약자, 영어 풀네임으로 적어주십시오">
         <input type="button" class="answerBtnClass" onclick="start()" id="startBtn" style="display: block;" value="시작하기">
         <input type="button" class="answerBtnClass" onclick="sayAnswerFunction()" id="sayBtn" style="display: none;" value="답맞추기">
+        <input type="button" class="answerBtnClass" onclick="againSayWrongAnswer()" id="reSayBtn" style="display: none;" value="다시풀기">
         <input type="button" class="answerBtnClass" onclick="let check = confirm('해답을 보시겠습니까?'); if(check == true) { wrongList.push(listCnt); seeAnswerFunction();}" id="seeBtn" style="display: none;" value="해답보기">
         <input type="button" class="answerBtnClass" onclick="nextAnswerFunction()" id="nextBtn" style="display: none;" value="다음문제">
         <input type="button" class="answerBtnClass" onclick="newAnswerFunction()" id="newBtn" style="display: none;" value="처음부터">
         <input type="button" class="answerBtnClass" onclick="reQuestStartFunction()" id="reStartBtn" style="display: none;" value="오답풀기">
-        <input type="button" class="answerBtnClass" onclick="againSayWrongAnswer()" id="reSayBtn" style="display: none;" value="다시풀기">
     </div>
     <script>
         function themeChange() {
